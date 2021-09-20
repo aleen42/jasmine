@@ -146,37 +146,8 @@ workflows:
   push:
     jobs:
       - build:
-          executor: node16
-          name: build_node_16
-      - build:
           executor: node14
           name: build_node_14
-      - build:
-          executor: node12
-          name: build_node_12
-      - build:
-          executor: node10
-          name: build_node_10
-      - test_node:
-          executor: node16
-          name: test_node_16
-          requires:
-             - build_node_16
-      - test_node:
-          executor: node14
-          name: test_node_14
-          requires:
-             - build_node_14
-      - test_node:
-          executor: node12
-          name: test_node_12
-          requires:
-             - build_node_12
-      - test_node:
-          executor: node10
-          name: test_node_10
-          requires:
-             - build_node_10
       - test_browsers:
           requires:
              - build_node_14
