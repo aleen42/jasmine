@@ -1196,7 +1196,7 @@ describe('Env integration', function() {
       });
     });
 
-    fit('should wait a custom interval before reporting async functions that fail to complete', function(done) {
+    it('should wait a custom interval before reporting async functions that fail to complete', function(done) {
       if (jasmine.getEnv().skipBrowserFlake) {
         jasmine.getEnv().skipBrowserFlake();
       }
