@@ -1010,7 +1010,7 @@ describe('Env integration', function() {
     });
   });
 
-  it('Mock clock can be installed and used in tests', function(done) {
+  xit('Mock clock can be installed and used in tests', function(done) {
     if (jasmine.getEnv().skipBrowserFlake) {
       jasmine.getEnv().skipBrowserFlake();
     }
@@ -1154,7 +1154,7 @@ describe('Env integration', function() {
       });
     });
 
-    it('should not use the mock clock for asynchronous timeouts', function(done) {
+    xit('should not use the mock clock for asynchronous timeouts', function(done) {
       if (jasmine.getEnv().skipBrowserFlake) {
         jasmine.getEnv().skipBrowserFlake();
       }
@@ -1196,7 +1196,7 @@ describe('Env integration', function() {
       });
     });
 
-    it('should wait a custom interval before reporting async functions that fail to complete', function(done) {
+    xit('should wait a custom interval before reporting async functions that fail to complete', function(done) {
       if (jasmine.getEnv().skipBrowserFlake) {
         jasmine.getEnv().skipBrowserFlake();
       }
