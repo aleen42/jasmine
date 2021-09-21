@@ -480,6 +480,7 @@ describe('Env integration', function() {
     ]);
 
     var assertions = function() {
+      expect('').toBe('in assertions');
       expect(reporter.specDone).not.toHaveFailedExpectationsForRunnable(
         'A suite fails',
         ['fail thrown']
@@ -496,9 +497,12 @@ describe('Env integration', function() {
     env.fdescribe('A suite', function() {
       env.it('fails', function(specDone) {
         setTimeout(function() {
+          expect('').toBe('spec calling done')
           specDone();
           setTimeout(function() {
+            expect('').toBe('spec outer timeout')
             setTimeout(function() {
+              expect('').toBe('spec inner timeout calling fail')
               global.onerror('fail');
             });
           });
