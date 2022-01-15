@@ -108,40 +108,6 @@ describe('Custom Matchers (Integration)', function() {
     env.execute(null, done);
   });
 
-  it('supports asymmetric equality testers that take a list of custom equality testers', function(done) {
-    // TODO: remove this in the next major release.
-    spyOn(jasmineUnderTest, 'getEnv').and.returnValue(env);
-
-    env.it('spec using custom asymmetric equality tester', function() {
-      var customEqualityFn = function(a, b) {
-        if (a === 2 && b === 'two') {
-          return true;
-        }
-      };
-      var arrayWithFirstElement = function(sample) {
-        return {
-          asymmetricMatch: function(actual, customEqualityTesters) {
-            return jasmineUnderTest.matchersUtil.equals(
-              sample,
-              actual[0],
-              customEqualityTesters
-            );
-          }
-        };
-      };
-
-      env.addCustomEqualityTester(customEqualityFn);
-      env.expect(['two']).toEqual(arrayWithFirstElement(2));
-    });
-
-    var specExpectations = function(result) {
-      expect(result.status).toEqual('passed');
-    };
-
-    env.addReporter({ specDone: specExpectations });
-    env.execute(null, done);
-  });
-
   it('displays an appropriate failure message if a custom equality matcher fails', function(done) {
     env.it('spec using custom equality matcher', function() {
       var customEqualityFn = function(a, b) {
@@ -244,9 +210,8 @@ describe('Custom Matchers (Integration)', function() {
     env.execute(null, done);
   });
 
-  // TODO: remove this in the next major release.
-  it('passes the jasmine utility and current equality testers to the matcher factory', function(done) {
-    var matcherFactory = function() {
+  it('passes the jasmine utility to the matcher factory', function(done) {
+    var matcherFactory = function(util) {
         return {
           compare: function() {
             return { pass: true };
@@ -255,13 +220,9 @@ describe('Custom Matchers (Integration)', function() {
       },
       matcherFactorySpy = jasmine
         .createSpy('matcherFactorySpy')
-        .and.callFake(matcherFactory),
-      customEqualityFn = function() {
-        return true;
-      };
+        .and.callFake(matcherFactory);
 
     env.it('spec with expectation', function() {
-      env.addCustomEqualityTester(customEqualityFn);
       env.addMatchers({
         toBeReal: matcherFactorySpy
       });
@@ -271,8 +232,7 @@ describe('Custom Matchers (Integration)', function() {
 
     var specExpectations = function() {
       expect(matcherFactorySpy).toHaveBeenCalledWith(
-        jasmine.any(jasmineUnderTest.MatchersUtil),
-        [customEqualityFn]
+        jasmine.any(jasmineUnderTest.MatchersUtil)
       );
     };
 
