@@ -144,6 +144,9 @@ workflows:
   push:
     jobs:
       - build:
+          executor: node16
+          name: build_node_16
+      - build:
           executor: node14
           name: build_node_14
       - build:
