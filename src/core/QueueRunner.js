@@ -96,7 +96,7 @@ getJasmineRequireObj().QueueRunner = function(j$) {
       completedSynchronously = true,
       handleError = function handleError(error) {
         // TODO remove
-        jasmine.getEnv().trace('QueueRunner handleError: ' + error);
+        jasmine.debugLog('QueueRunner handleError: ' + error);
         // TODO probably shouldn't next() right away here.
         // That makes debugging async failures much more confusing.
         onException(error);
